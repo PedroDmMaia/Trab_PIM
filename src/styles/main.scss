@@ -1,0 +1,18 @@
+@import 'reset';
+@import 'variable';
+@import 'home-page';
+
+.button {
+    width: 150px;
+    height: 45px;
+    border-radius: 30px;
+    background: linear-gradient(0deg, $gradientColor2, $gradientColor1);
+    color: $corSecundaria;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+
+    &:hover {
+        background: lighten($gradientColor2, .1%);
+    }
+}
