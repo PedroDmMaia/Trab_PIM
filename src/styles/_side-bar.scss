@@ -1,0 +1,58 @@
+@import './variable.scss';
+
+.main-page__side-bar {
+    max-width: 9%;
+    height: 100vh;
+    background-color: $corSecundaria;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    left: 0;
+
+    &>img {
+        margin: 0 auto;
+        margin-bottom: 50px;
+        margin-top: 30px;
+    }
+
+    &__nav {
+        height: 100%;
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+
+        &__item {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            margin-top: 25px;
+            cursor: pointer;
+
+            a>img {
+                width: 50px;
+            }
+
+            a {
+                display: block;
+                color: #fff;
+            }
+
+            &:hover {
+                background-color: gray;
+            }
+
+            &:nth-child(2) {
+                margin-top: 100px;
+                margin-bottom: 100px;
+            }
+
+            &--active {
+                background-color: gray;
+            }
+        }
+    }
+}

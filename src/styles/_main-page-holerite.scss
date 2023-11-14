@@ -1,0 +1,24 @@
+.main-page__content__holerite {
+    display: flex;
+    flex-direction: column;
+    display: none;
+
+    &__search {
+        width: 100%;
+        height: calc(100vh - 100px);
+        display: grid;
+        place-items: center;
+
+        input {
+            width: 300px;
+            border-radius: 20px;
+            border: none;
+            background-color: #eee;
+            padding: 20px;
+
+            &:focus {
+                outline-color: #eee;
+            }
+        }
+    }
+}

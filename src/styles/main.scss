@@ -1,6 +1,7 @@
 @import 'reset';
 @import 'variable';
 @import 'home-page';
+@import 'main-page';
 
 .button {
     width: 150px;
@@ -14,5 +15,27 @@
 
     &:hover {
         background: lighten($gradientColor2, .1%);
+    }
+
+    &--menu {
+        height: 80px;
+        width: 200px;
+        font-size: 25px;
+    }
+}
+
+.main-page__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 50px;
+        }
     }
 }

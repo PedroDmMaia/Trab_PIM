@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
     <div class="home-page">
         <div class="home-page__principal">
             <img src="https://via.placeholder.com/150x150" alt="">
@@ -33,7 +34,141 @@
             </form>
         </div>
     </div>
-    <script src="./scripts/main.js"></script>
+
+    <div class="main-page">
+        <aside class="main-page__side-bar">
+            <img src="./images/Logo2_-_SL-removebg-preview.png" alt="">
+            <nav class="main-page__side-bar__nav">
+                <ul class="main-page__side-bar__container">
+                    <li class="main-page__side-bar__container__item main-page__side-bar__container__item--active">
+                        <a href="#">
+                            <img src="./images/graphic.png" alt="">
+                            <p>Painel de controle</p>
+                        </a>
+                    </li>
+                    <li class="main-page__side-bar__container__item">
+                        <a href="#">
+                            <img src="./images/group.png" alt="">
+                            <p>Funcionários</p>
+                        </a>
+                    </li>
+                    <li class="main-page__side-bar__container__item">
+                        <a href="#">
+                            <img src="./images/settings.png" alt="">
+                            <p>Folha de pagamento</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="main-page__content">
+
+            <div id="painel" class="main-page__content__painel">
+                <div class="main-page__header">
+                    <h2>Painel de controle</h2>
+                    <div>
+                        <img src="./images/icons8-usuário-96.png" alt="">
+                        <h3>RH</h3>
+                    </div>
+                </div>
+                <div class="main-page__content__painel__box">
+                    <p>Saldo - Novembro</p>
+                    <h3>R$ 28.402,00</h3>
+                </div>
+                <img src="./images/Captura de tela 2023-11-13 131912.png" alt="">
+            </div>
+
+            <div class="main-page__content__funcionarios">
+                <div class="main-page__header" style="display: none;">
+                    <h2>Funcionários</h2>
+                    <div>
+                        <img src="./images/icons8-usuário-96.png" alt="">
+                        <h3>RH</h3>
+                    </div>
+                </div>
+                <nav class="main-page__content__funcionarios__nav">
+                    <ul class="main-page__content__funcionarios__nav__container">
+                        <li class="main-page__content__funcionarios__nav__container__item">
+                            <a href="#" class="button">Cadastrar</a>
+                        </li>
+                        <li class="main-page__content__funcionarios__nav__container__item">
+                            <a href="#" class="button">Aterar</a>
+                        </li>
+                        <li class="main-page__content__funcionarios__nav__container__item">
+                            <a href="#" class="button">Deletar</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="main-page__content__funcionarios__cadastrar">
+
+                    <div class="main-page__header">
+                        <h2>Cadastrar</h2>
+                        <div>
+                            <img src="./images/icons8-usuário-96.png" alt="">
+                            <h3>RH</h3>
+                        </div>
+                    </div>
+                    <form class="main-page__content__funcionarios__cadastrar__form">
+                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                            <label for="nome">Nome Completo</label>
+                            <input id="nome" type="text" required>
+                        </div>
+                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                            <label for="conta">Conta Bancária</label>
+                            <input id="conta" type="number" required>
+                        </div>
+                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                            <label for="cpf">CPF</label>
+                            <input id="cpf" type="number" required>
+                        </div>
+                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" required>
+                        </div>
+                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                            <label for="senha">Gerenero</label>
+                            <input id="senha" type="text" required>
+                        </div>
+                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                            <label for="dataNasc">Data Nascimento</label>
+                            <input id="dataNasc" type="date" required>
+                        </div>
+                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                            <label for="prof">Profissão</label>
+                            <select id="profissoes">
+                                <option value="professor">Professor(a)</option>
+                                <option value="Rh">RH</option>
+                                <option value="Ti">TI</option>
+                                <option value="secretaria">Secretaria(o)</option>
+                            </select>
+                        </div>
+                        <div class="main-page__content__funcionarios__cadastrar__form__enviar">
+                            <button class="button" type="button">Cancelar</button>
+                            <button class="button" type="submit">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="main-page__content__holerite">
+                <div class="main-page__header">
+                    <h2>Folha de pagamento</h2>
+                    <div>
+                        <img src="./images/icons8-usuário-96.png" alt="">
+                        <h3>RH</h3>
+                    </div>
+                </div>
+                <div class="main-page__content__holerite__search">
+                    <input type="text" placeholder="Digite o nome do funcionario">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="module" src="./scripts/main.js"></script>
 </body>
 
 </html>

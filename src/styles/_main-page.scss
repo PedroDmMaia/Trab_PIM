@@ -1,0 +1,13 @@
+@import 'side-bar';
+@import 'main-page-func';
+@import 'main-page-painel';
+@import 'main-page-holerite';
+
+.main-page {
+    display: flex;
+
+    &__content {
+        padding: 50px 40px 0;
+        width: 100%;
+    }
+}
