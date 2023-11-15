@@ -14,12 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
     SelecionaOpcao()
     funcionariosAut(Trabalhadores)
 
-    console.log(Trabalhadores)
+    // console.log(Trabalhadores)
 })
 
 function TrocaConteudo() {
     const liItems = document.querySelectorAll('.main-page__side-bar__container__item')
-    const contents = document.querySelectorAll('.main-page__content > div')
+    const contents = document.querySelectorAll('.main-page__content > div.main')
+    const opcoes = document.querySelectorAll('.main-page__content__opcoes > div')
 
     liItems.forEach((item, indice) => {
         item.addEventListener('click', () => {
@@ -32,6 +33,7 @@ function TrocaConteudo() {
 
             //oculta todos os conteudos
             contents.forEach(item => item.style.display = 'none')
+            opcoes.forEach(item => item.style.display = 'none')
 
             //mostra somente o conteudo referente ao indice
             contents[indice].style.display = 'flex';
@@ -77,6 +79,7 @@ function FuncionariosCad() {
         item.addEventListener('click', () => {
             //removendo o form da tela
             document.querySelector('.main-page__content__opcoes__cadastrar').style.display = 'none';
+            document.querySelector('.main-page__content__opcoes__alterar').style.display = 'none';
 
             //retornando a tela de escolha de opção
             document.querySelector('.main-page__content__funcionarios').style.display = 'flex';
