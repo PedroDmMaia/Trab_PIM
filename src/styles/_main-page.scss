@@ -1,7 +1,9 @@
 @import 'side-bar';
-@import 'main-page-func';
-@import 'main-page-painel';
-@import 'main-page-holerite';
+@import './main-page-styles/main-page-func';
+@import './main-page-styles/main-page-painel';
+@import './main-page-styles/main-page-cadastro';
+@import './main-page-styles/main-page-alterar';
+@import './main-page-styles/main-page-holerite';
 
 .main-page {
     display: flex;

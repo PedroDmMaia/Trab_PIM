@@ -2,7 +2,7 @@ const Trabalhadores = []
 
 class Funcionario {
     constructor(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc, Cargo, Salario) {
-        this.nome = nomeFuncionario
+        this.nome = nomeFuncionario.toLowerCase()
         this.contaBancaria = contaBancaria
         this.cpf = CPF
         this.email = email

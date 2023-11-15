@@ -1,22 +1,9 @@
-.main-page__content__funcionarios {
-    display: flex;
-    flex-direction: column;
+.main-page__content__opcoes {
+    display: none;
 
-    //navegação
-    &__nav {
-        height: 780px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    &__cadastrar {
         display: none;
 
-        button {
-            margin: 30px;
-        }
-    }
-
-    //Cadastrar
-    &__cadastrar {
         &__form {
             width: 100%;
             max-width: 1240px;
@@ -48,4 +35,5 @@
             }
         }
     }
+
 }

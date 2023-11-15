@@ -80,7 +80,8 @@
             </div>
 
             <div class="main-page__content__funcionarios">
-                <div class="main-page__header" style="display: none;">
+
+                <div class="main-page__header">
                     <h2>Funcionários</h2>
                     <div>
                         <img src="./images/icons8-usuário-96.png" alt="">
@@ -101,7 +102,11 @@
                     </ul>
                 </nav>
 
-                <div class="main-page__content__funcionarios__cadastrar">
+            </div>
+
+            <div class="main-page__content__opcoes">
+
+                <div class="main-page__content__opcoes__cadastrar">
 
                     <div class="main-page__header">
                         <h2>Cadastrar</h2>
@@ -110,32 +115,32 @@
                             <h3>RH</h3>
                         </div>
                     </div>
-                    <form class="main-page__content__funcionarios__cadastrar__form">
-                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                    <form class="main-page__content__opcoes__cadastrar__form">
+                        <div class="main-page__content__opcoes__cadastrar__form__input">
                             <label for="nome">Nome Completo</label>
                             <input id="nome" type="text" required>
                         </div>
-                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                        <div class="main-page__content__opcoes__cadastrar__form__input">
                             <label for="conta">Conta Bancária</label>
                             <input id="conta" type="number" required>
                         </div>
-                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                        <div class="main-page__content__opcoes__cadastrar__form__input">
                             <label for="cpf">CPF</label>
                             <input id="cpf" type="number" required>
                         </div>
-                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                        <div class="main-page__content__opcoes__cadastrar__form__input">
                             <label for="email">Email</label>
                             <input id="email" type="email" required>
                         </div>
-                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                        <div class="main-page__content__opcoes__cadastrar__form__input">
                             <label for="senha">Gerenero</label>
                             <input id="senha" type="text" required>
                         </div>
-                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                        <div class="main-page__content__opcoes__cadastrar__form__input">
                             <label for="dataNasc">Data Nascimento</label>
                             <input id="dataNasc" type="date" required>
                         </div>
-                        <div class="main-page__content__funcionarios__cadastrar__form__input">
+                        <div class="main-page__content__opcoes__cadastrar__form__input">
                             <label for="prof">Profissão</label>
                             <select id="profissoes">
                                 <option value="professor">Professor(a)</option>
@@ -144,14 +149,39 @@
                                 <option value="secretaria">Secretaria(o)</option>
                             </select>
                         </div>
-                        <div class="main-page__content__funcionarios__cadastrar__form__enviar">
-                            <button class="button" type="button">Cancelar</button>
+                        <div class="main-page__content__opcoes__cadastrar__form__enviar">
+                            <button class="button cancelar" type="button">Cancelar</button>
                             <button class="button" type="submit">Salvar</button>
                         </div>
                     </form>
+
+                </div>
+
+                <div class="main-page__content__opcoes__alterar">
+                    <div class="main-page__header">
+                        <h2>Alterar</h2>
+                        <div>
+                            <img src="./images/icons8-usuário-96.png" alt="">
+                            <h3>RH</h3>
+                        </div>
+                    </div>
+                    <div class="main-page__content__opcoes__alterar__search">
+                        <div class="main-page__content__opcoes__alterar__search__container">
+                            <input id="campoSearch" type="text" placeholder="digite o nome do funcionário">
+                            <button id="buttonSearch" title="pesquisar">
+                                <img src="./images/search-interface-symbol.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="main-page__content__opcoes__alterar__content">
+                    </div>
+                    <div class="main-page__content__opcoes__alterar__footer">
+                        <button class="button cancelar" type="button">Cancelar</button>
+                    </div>
                 </div>
 
             </div>
+
 
             <div class="main-page__content__holerite">
                 <div class="main-page__header">

@@ -1,0 +1,42 @@
+.main-page__content__opcoes__alterar {
+    display: none;
+    height: 100%;
+
+    &__search {
+        margin: 50px 0;
+        display: flex;
+        justify-content: center;
+
+        &__container {
+            display: flex;
+            align-items: center;
+
+            input {
+                border-radius: 25px;
+                padding: 20px;
+                width: 300px;
+                border: 2px solid #A6A6A6;
+                color: #A6A6A6;
+
+                &:focus {
+                    outline-color: #A6A6A6;
+                }
+            }
+
+            button {
+                width: 50px;
+                background: none;
+                border: none;
+
+                img {
+                    width: 30px;
+                }
+            }
+        }
+    }
+
+    &__content {
+        height: 60vh;
+        padding: 30px;
+    }
+}

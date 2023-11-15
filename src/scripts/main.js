@@ -10,7 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     TrocaConteudo()
-    Funcionarios()
+    FuncionariosCad()
+    SelecionaOpcao()
+    funcionariosAut(Trabalhadores)
+
+    console.log(Trabalhadores)
 })
 
 function TrocaConteudo() {
@@ -35,10 +39,11 @@ function TrocaConteudo() {
     });
 }
 
-function Funcionarios() {
-    const inputs = document.querySelectorAll('.main-page__content__funcionarios__cadastrar__form__input > input, .main-page__content__funcionarios__cadastrar__form__input > select')
-    const form = document.querySelector('.main-page__content__funcionarios__cadastrar__form')
+function FuncionariosCad() {
+    const inputs = document.querySelectorAll('.main-page__content__opcoes__cadastrar__form__input > input')
+    const form = document.querySelector('.main-page__content__opcoes__cadastrar__form')
     const opcao = document.getElementById('profissoes')
+    const buttonCancelar = document.querySelectorAll('.cancelar')
 
     let novoFuncionario = ''
 
@@ -64,6 +69,96 @@ function Funcionarios() {
             Trabalhadores.push(novoFuncionario)
         }
 
-        console.log(Trabalhadores)
+        form.reset()
+        alert(`Usuário ${novoFuncionario.nome} cadastrado com sucesso`)
+    })
+
+    buttonCancelar.forEach(item => {
+        item.addEventListener('click', () => {
+            //removendo o form da tela
+            document.querySelector('.main-page__content__opcoes__cadastrar').style.display = 'none';
+
+            //retornando a tela de escolha de opção
+            document.querySelector('.main-page__content__funcionarios').style.display = 'flex';
+        })
     })
 }
+
+function SelecionaOpcao() {
+    const Lis = document.querySelectorAll('.main-page__content__funcionarios__nav__container__item')
+    const opcoes = document.querySelectorAll('.main-page__content__opcoes > div')
+    const containerItens = document.querySelector('.main-page__content__funcionarios')
+
+    Lis.forEach((item, indice) => {
+        item.addEventListener('click', () => {
+            containerItens.style.display = 'none'
+
+            document.querySelector('.main-page__content__opcoes').style.display = 'block';
+            opcoes.forEach(item => item.style.display = 'none')
+            opcoes[indice].style.display = 'block'
+        })
+    })
+}
+
+function funcionariosAut1(array) {
+    const CampoSearch = document.getElementById('campoSearch')
+    const buttonSearch = document.getElementById('buttonSearch')
+    let corpoForm = document.querySelector('.main-page__content__opcoes__alterar__content__container')
+    let funcionarioEncontrado = null
+
+    buttonSearch.addEventListener('click', () => {
+        const nomePesquisado = CampoSearch.value.toLowerCase()
+
+        funcionarioEncontrado = Trabalhadores.find(item => item.nome === nomePesquisado)
+
+
+    })
+
+}
+
+function funcionariosAut(array) {
+    const CampoSearch = document.getElementById('campoSearch');
+    const buttonSearch = document.getElementById('buttonSearch');
+    const corpoForm = document.querySelector('.main-page__content__opcoes__alterar__content');
+
+    buttonSearch.addEventListener('click', () => {
+        const nomePesquisado = CampoSearch.value.toLowerCase();
+
+        const funcionarioEncontrado = array.find(item => item.nome.toLowerCase() === nomePesquisado);
+
+        if (funcionarioEncontrado) {
+            const form = document.createElement('form');
+            form.classList.add('main-page__content__opcoes__alterar__content__container__form');
+
+            for (const prop in funcionarioEncontrado) {
+                const label = document.createElement('label');
+                label.textContent = prop;
+                const input = document.createElement('input');
+                input.name = prop;
+                input.value = funcionarioEncontrado[prop];
+                form.appendChild(label);
+                form.appendChild(input);
+            }
+
+            const submitButton = document.createElement('button');
+            submitButton.type = 'submit';
+            submitButton.textContent = 'Salvar';
+            form.appendChild(submitButton);
+
+            corpoForm.innerHTML = '';
+            corpoForm.appendChild(form);
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                for (const prop in funcionarioEncontrado) {
+                    funcionarioEncontrado[prop] = form[prop].value;
+                }
+                alert(`Dados do funcionário ${funcionarioEncontrado.nome} atualizados com sucesso!`);
+                console.log(Trabalhadores)
+            });
+        } else {
+            alert('Usuário não encontrado');
+        }
+    });
+}
+

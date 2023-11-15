@@ -1,0 +1,25 @@
+.main-page__content__funcionarios {
+    display: flex;
+    flex-direction: column;
+    display: none;
+
+    //navegação
+    &__nav {
+        height: calc(100vh - 100px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__container {
+            display: flex;
+
+            &__item {
+                margin: 30px;
+
+                a {
+                    padding: 25px 70px;
+                }
+            }
+        }
+    }
+}
