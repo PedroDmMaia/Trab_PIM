@@ -12,9 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
     TrocaConteudo()
     FuncionariosCad()
     SelecionaOpcao()
-    funcionariosAut(Trabalhadores)
+    funcionariosAlt(Trabalhadores)
+    Deletar(Trabalhadores)
+    Holerite(Trabalhadores)
 
-    // console.log(Trabalhadores)
 })
 
 function TrocaConteudo() {
@@ -80,6 +81,7 @@ function FuncionariosCad() {
             //removendo o form da tela
             document.querySelector('.main-page__content__opcoes__cadastrar').style.display = 'none';
             document.querySelector('.main-page__content__opcoes__alterar').style.display = 'none';
+            document.querySelector('.main-page__content__opcoes__deletar').style.display = 'none';
 
             //retornando a tela de escolha de opção
             document.querySelector('.main-page__content__funcionarios').style.display = 'flex';
@@ -103,23 +105,7 @@ function SelecionaOpcao() {
     })
 }
 
-function funcionariosAut1(array) {
-    const CampoSearch = document.getElementById('campoSearch')
-    const buttonSearch = document.getElementById('buttonSearch')
-    let corpoForm = document.querySelector('.main-page__content__opcoes__alterar__content__container')
-    let funcionarioEncontrado = null
-
-    buttonSearch.addEventListener('click', () => {
-        const nomePesquisado = CampoSearch.value.toLowerCase()
-
-        funcionarioEncontrado = Trabalhadores.find(item => item.nome === nomePesquisado)
-
-
-    })
-
-}
-
-function funcionariosAut(array) {
+function funcionariosAlt(array) {
     const CampoSearch = document.getElementById('campoSearch');
     const buttonSearch = document.getElementById('buttonSearch');
     const corpoForm = document.querySelector('.main-page__content__opcoes__alterar__content');
@@ -134,34 +120,116 @@ function funcionariosAut(array) {
             form.classList.add('main-page__content__opcoes__alterar__content__container__form');
 
             for (const prop in funcionarioEncontrado) {
+                const divInputGroup = document.createElement('div');
+                divInputGroup.classList.add('main-page__content__opcoes__cadastrar__form__input');
+
                 const label = document.createElement('label');
                 label.textContent = prop;
-                const input = document.createElement('input');
-                input.name = prop;
-                input.value = funcionarioEncontrado[prop];
-                form.appendChild(label);
-                form.appendChild(input);
+                label.setAttribute('for', prop);
+
+                let input;
+
+                if (prop === 'cargo') {
+                    input = document.createElement('select');
+                    input.id = prop;
+                    const options = ['Professor(a)', 'RH', 'TI', 'Secretaria(o)'];
+                    options.forEach(optionText => {
+                        const option = document.createElement('option');
+                        option.value = optionText.toLowerCase();
+                        option.textContent = optionText;
+                        input.appendChild(option);
+                    });
+                    input.value = funcionarioEncontrado[prop].toLowerCase();
+                } else {
+                    input = document.createElement('input');
+                    input.id = prop;
+                    input.name = prop;
+                    input.value = funcionarioEncontrado[prop];
+                }
+
+                divInputGroup.appendChild(label);
+                divInputGroup.appendChild(input);
+
+                form.appendChild(divInputGroup);
             }
+
+            const divButtons = document.createElement('div')
+            divButtons.classList.add('buttons-form')
 
             const submitButton = document.createElement('button');
             submitButton.type = 'submit';
+            submitButton.classList.add('button')
             submitButton.textContent = 'Salvar';
-            form.appendChild(submitButton);
+            divButtons.appendChild(submitButton);
+
+            const cancelButton = document.createElement('button');
+            cancelButton.type = 'click';
+            cancelButton.classList.add('button')
+            cancelButton.textContent = 'cancelar';
+            divButtons.appendChild(cancelButton);
+
+            form.appendChild(divButtons)
 
             corpoForm.innerHTML = '';
             corpoForm.appendChild(form);
 
+            document.querySelector('.main-page__content__opcoes__alterar__footer').style.display = 'none';
+
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 for (const prop in funcionarioEncontrado) {
-                    funcionarioEncontrado[prop] = form[prop].value;
+                    if (prop !== 'cargo') {
+                        funcionarioEncontrado[prop] = form[prop].value;
+                    } else {
+                        const select = document.getElementById(prop);
+                        funcionarioEncontrado[prop] = select.options[select.selectedIndex].textContent;
+                    }
                 }
                 alert(`Dados do funcionário ${funcionarioEncontrado.nome} atualizados com sucesso!`);
-                console.log(Trabalhadores)
+                console.log(funcionarioEncontrado)
+                corpoForm.innerHTML = ''
+                document.querySelector('.main-page__content__opcoes__alterar__footer').style.display = 'block';
             });
+
+            cancelButton.addEventListener('click', () => {
+                corpoForm.innerHTML = ''
+                document.querySelector('.main-page__content__opcoes__alterar__footer').style.display = 'block';
+            })
+
+            CampoSearch.addEventListener('input', () => {
+                corpoForm.innerHTML = ''; // Limpa o conteúdo do formulário ao começar uma nova busca
+                document.querySelector('.main-page__content__opcoes__alterar__footer').style.display = 'block';
+            });
+
         } else {
             alert('Usuário não encontrado');
         }
     });
 }
 
+function Deletar(array) {
+    const campoDelet = document.getElementById('deleteFunc');
+    const buttonCancelar = document.getElementById('buttonDeletar');
+
+    buttonCancelar.addEventListener('click', () => {
+        const valor = campoDelet.value.toLowerCase();
+        const funcionarioEncontradoIndex = array.findIndex(item => item.nome.toLowerCase() === valor);
+
+        if (funcionarioEncontradoIndex !== -1) {
+            const confirmar = confirm(`Tem certeza que deseja excluir o funcionário ${array[funcionarioEncontradoIndex].nome}?`);
+
+            if (confirmar) {
+                array.splice(funcionarioEncontradoIndex, 1);
+                alert(`O funcionário ${valor} foi removido com sucesso.`);
+            } else {
+                alert('Operação cancelada.');
+            }
+        } else {
+            alert('Usuário não encontrado');
+        }
+    });
+}
+
+function Holerite(array) {
+
+}
