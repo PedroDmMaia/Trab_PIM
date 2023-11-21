@@ -15,25 +15,25 @@ class Funcionario {
 
 class Professor extends Funcionario {
     constructor(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc) {
-        super(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc, 'Professor', 2164.61)
+        super(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc, 'Professor', 16.03)
     }
 }
 
 class Secrataria extends Funcionario {
     constructor(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc) {
-        super(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc, 'Secretária', 1900.00)
+        super(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc, 'Secretária', 14.07)
     }
 }
 
 class RH extends Funcionario {
     constructor(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc) {
-        super(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc, 'RH', 3431.00)
+        super(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc, 'RH', 25.41)
     }
 }
 
 class TI extends Funcionario {
     constructor(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc) {
-        super(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc, 'TI', 4300.00)
+        super(nomeFuncionario, contaBancaria, CPF, email, genero, dataNasc, 'TI', 31.85)
     }
 }
 

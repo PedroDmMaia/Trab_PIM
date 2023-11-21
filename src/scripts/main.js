@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     funcionariosAlt(Trabalhadores)
     Deletar(Trabalhadores)
     Holerite(Trabalhadores)
-
 })
 
 function TrocaConteudo() {
@@ -231,5 +230,43 @@ function Deletar(array) {
 }
 
 function Holerite(array) {
+    const nav = document.querySelectorAll('.main-page__content__holerite__opcoes__item')
+    const opcoes = document.querySelectorAll('.main-page__content__holerite__opcao > div')
+    const mainOpcoes = document.querySelector('.main-page__content__holerite')
+    const FuncIndividual = document.getElementById('search-holerite')
+    const buttonConfirmIndividual = document.getElementById('confirm-search-button')
+
+    const buttonCancelarHolerite = document.querySelectorAll('.btn-cancelar-holerite')
+
+    nav.forEach((item, indice) => {
+        item.addEventListener('click', () => {
+            mainOpcoes.style.display = 'none'
+            opcoes[indice].style.display = 'block'
+        })
+    })
+
+    buttonCancelarHolerite.forEach(item => {
+        item.addEventListener('click', () => {
+            opcoes.forEach(item => item.style.display = 'none')
+            document.querySelector('.main-page__content__holerite').style.display = 'block'
+        })
+    })
+
+    buttonConfirmIndividual.addEventListener('click', () => {
+        const nomePesquisado = FuncIndividual.value.toLowerCase();
+
+        const encontrado = array.find(item => item.nome.toLowerCase() === nomePesquisado);
+
+        if (encontrado) {
+            const campoFunc = document.getElementById('nomeFunc')
+            document.getElementById('holeriteIndividual').style.display = 'none'
+            document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'block'
+
+            campoFunc.value = encontrado.nome
+            campoFunc.readOnly = true
+        } else {
+            alert('funcionario não encontrado')
+        }
+    })
 
 }

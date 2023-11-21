@@ -211,10 +211,79 @@
                         <h3>RH</h3>
                     </div>
                 </div>
-                <div class="main-page__content__holerite__search">
-                    <input type="text" placeholder="Digite o nome do funcionario">
-                    <img src="./images/search-interface-symbol.png" alt="">
+                <div class="main-page__content__holerite__content">
+                    <h2 class="main-page__content__holerite__title">Escolha uma opção</h2>
+                    <ul class="main-page__content__holerite__opcoes">
+                        <li class="main-page__content__holerite__opcoes__item">
+                            <a class="button" href="#">Um funcionário</a>
+                        </li>
+                        <li class="main-page__content__holerite__opcoes__item">
+                            <a class="button" href="#">Todos os funcionários</a>
+                        </li>
+                    </ul>
                 </div>
+            </div>
+
+            <div class="main-page__content__holerite__opcao">
+
+                <div class="main-page__content__holerite__opcao__umFuncionario">
+                    <div class="main-page__header">
+                        <h2>Um funcionário</h2>
+                        <div>
+                            <img id="deletaFunc" src="./images/icons8-usuário-96.png" alt="">
+                            <h3>RH</h3>
+                        </div>
+                    </div>
+                    <div class="main-page__content__holerite__opcao__umFuncionario__content">
+                        <div id="holeriteIndividual">
+                            <div class="main-page__content__opcoes__deletar__search">
+                                <input id="search-holerite" type="text" placeholder="digite o nome do funcionário">
+                                <button id="confirm-search-button" type="button">
+                                    <img src="./images/search-interface-symbol.png" alt="">
+                                </button>
+                            </div>
+                            <button id="home-holerite" type="button"
+                                class="button btn-cancelar-holerite">Cancelar</button>
+                        </div>
+                        <form class="main-page__content__holerite__opcao__umFuncionario__form">
+                            <div class="main-page__content__opcoes__cadastrar__form__input">
+                                <label for="nomeFunc">Funcionário</label>
+                                <input id="nomeFunc" type="text" required>
+                            </div>
+                            <div class="main-page__content__opcoes__cadastrar__form__input">
+                                <label for="horasTrab">Horas Trabalhadas</label>
+                                <input id="horasTrab" type="number" max="135" required>
+                            </div>
+                            <div class="main-page__content__opcoes__cadastrar__form__input">
+                                <label for="tipos">Tipo de Holerite: </label>
+                                <select id="tipos">
+                                    <option value="13">13ª</option>
+                                    <option value="ferias">Férias</option>
+                                    <option value="pagamento">Pagamento</option>
+                                </select>
+                            </div>
+                            <div class="main-page__content__opcoes__cadastrar__form__enviar">
+                                <button class="button btn-cancelar-holerite" type="button">Cancelar</button>
+                                <button class="button" type="submit">Gerar Holerite</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="main-page__content__holerite__opcao__todosFuncionarios">
+                    <div class="main-page__header">
+                        <h2>Todos os funcionários</h2>
+                        <div>
+                            <img id="deletaFunc" src="./images/icons8-usuário-96.png" alt="">
+                            <h3>RH</h3>
+                        </div>
+                    </div>
+                    <div class="main-page__content__holerite__opcao__todosFuncionarios__content">
+                    </div>
+
+                </div>
+
             </div>
 
         </div>

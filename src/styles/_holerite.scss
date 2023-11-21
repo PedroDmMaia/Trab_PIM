@@ -1,0 +1,45 @@
+.main-page__content__holerite {
+
+    &__content {
+        display: block;
+    }
+
+    &__title {
+        font-size: 18px;
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    &__opcoes {
+        width: 100%;
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        li {
+            margin: 10px;
+
+            a {
+                padding: 20px;
+            }
+        }
+    }
+
+    &__opcao {
+        &__umFuncionario {
+            display: none;
+
+            &__form {
+                display: none;
+                width: 1240px;
+                margin: 0 auto;
+                margin-top: 250px;
+            }
+        }
+
+        &__todosFuncionarios {
+            display: none;
+        }
+    }
+}
