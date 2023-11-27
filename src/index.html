@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <title>SL Language</title>
     <link rel="stylesheet" href="styles/main.scss">
 </head>
@@ -252,23 +252,25 @@
                             </div>
                             <div class="main-page__content__opcoes__cadastrar__form__input">
                                 <label for="horasTrab">Horas Trabalhadas</label>
-                                <input id="horasTrab" type="number" max="135" required>
+                                <input id="horasTrab" type="number" max="240" required>
                             </div>
                             <div class="main-page__content__opcoes__cadastrar__form__input">
                                 <label for="tipos">Tipo de Holerite: </label>
-                                <select id="tipos">
-                                    <option value="13">13ª</option>
-                                    <option value="ferias">Férias</option>
+                                <select id="tipos-holerite">
                                     <option value="pagamento">Pagamento</option>
+                                    <option value="ferias">Férias</option>
+                                    <option value="decimoTerceiro">13ª</option>
                                 </select>
                             </div>
                             <div class="main-page__content__opcoes__cadastrar__form__enviar">
-                                <button class="button btn-cancelar-holerite" type="button">Cancelar</button>
+                                <button class="button btn-cancelar-holerite-umFunc" type="button">Cancelar</button>
                                 <button class="button" type="submit">Gerar Holerite</button>
                             </div>
                         </form>
-                    </div>
+                        <div class="main-page__content__holerite__opcao__umFuncionario__content__tabelas">
+                        </div>
 
+                    </div>
                 </div>
 
                 <div class="main-page__content__holerite__opcao__todosFuncionarios">
@@ -279,9 +281,19 @@
                             <h3>RH</h3>
                         </div>
                     </div>
-                    <div class="main-page__content__holerite__opcao__todosFuncionarios__content">
-                    </div>
-
+                    <form class="main-page__content__holerite__opcao__todosFuncionarios__form">
+                        <div class="main-page__content__opcoes__cadastrar__form__input">
+                            <label for="tipos">Tipo de Holerite: </label>
+                            <select id="tipos-holerite-todos">
+                                <option value="pagamento">Pagamento</option>
+                                <option value="decimoTerceiro">13ª</option>
+                            </select>
+                        </div>
+                        <div class="main-page__content__holerite__opcao__todosFuncionarios__form__enviar">
+                            <button class="button" type="button">Cancelar</button>
+                            <button class="button" type="submit">Gerar Holerites</button>
+                        </div>
+                    </form>
                 </div>
 
             </div>

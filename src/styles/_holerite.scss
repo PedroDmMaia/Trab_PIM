@@ -30,6 +30,86 @@
         &__umFuncionario {
             display: none;
 
+            &__content {
+
+                &__tabelas {
+                    width: 100%;
+                    max-width: 85%;
+                    margin: 0 auto;
+
+                    .box-princ {
+                        margin: 0 auto;
+                        display: flex;
+                        justify-content: space-around;
+                        column-gap: 150px;
+                        margin-top: 50px;
+                    }
+
+                    .box1,
+                    .box2 {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        row-gap: 20px;
+                    }
+
+                    .box1 p,
+                    .box2 p {
+                        font-weight: bold;
+                        border-bottom: 1px solid black;
+                    }
+
+                    .box1 span,
+                    .box2 span {
+                        float: right;
+                        font-weight: normal;
+                    }
+
+                    table {
+                        width: 100%;
+                    }
+
+                    .first-table {
+                        margin-top: 150px;
+                    }
+
+                    table tr td {
+                        padding: 10px;
+                    }
+
+                    .primary {
+                        background-color: #FFBD59;
+                    }
+
+                    .secondary {
+                        background-color: #FFF4AB;
+                    }
+
+                    .valores {
+                        text-align: end;
+                    }
+
+                    .title {
+                        text-align: center;
+                    }
+
+                    td>span {
+                        float: right;
+                    }
+
+                    #total {
+                        background-color: #FFE166;
+                    }
+
+                    .buttons {
+                        margin-top: 50px;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                }
+
+            }
+
             &__form {
                 display: none;
                 width: 1240px;
@@ -40,6 +120,18 @@
 
         &__todosFuncionarios {
             display: none;
+
+            &__form {
+                width: 100%;
+                max-width: 1240px;
+                margin: 0 auto;
+                margin-top: 250px;
+
+                &__enviar {
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
         }
     }
 }

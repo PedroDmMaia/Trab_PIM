@@ -21,6 +21,7 @@ function TrocaConteudo() {
     const liItems = document.querySelectorAll('.main-page__side-bar__container__item')
     const contents = document.querySelectorAll('.main-page__content > div.main')
     const opcoes = document.querySelectorAll('.main-page__content__opcoes > div')
+    const opcoesHolerite = document.querySelectorAll('.main-page__content__holerite__opcao > div')
 
     liItems.forEach((item, indice) => {
         item.addEventListener('click', () => {
@@ -34,6 +35,7 @@ function TrocaConteudo() {
             //oculta todos os conteudos
             contents.forEach(item => item.style.display = 'none')
             opcoes.forEach(item => item.style.display = 'none')
+            opcoesHolerite.forEach(item => item.style.display = 'none')
 
             //mostra somente o conteudo referente ao indice
             contents[indice].style.display = 'flex';
@@ -185,7 +187,6 @@ function funcionariosAlt(array) {
                     }
                 }
                 alert(`Dados do funcionário ${funcionarioEncontrado.nome} atualizados com sucesso!`);
-                console.log(funcionarioEncontrado)
                 corpoForm.innerHTML = ''
                 document.querySelector('.main-page__content__opcoes__alterar__footer').style.display = 'block';
             });
@@ -230,43 +231,165 @@ function Deletar(array) {
 }
 
 function Holerite(array) {
-    const nav = document.querySelectorAll('.main-page__content__holerite__opcoes__item')
-    const opcoes = document.querySelectorAll('.main-page__content__holerite__opcao > div')
-    const mainOpcoes = document.querySelector('.main-page__content__holerite')
-    const FuncIndividual = document.getElementById('search-holerite')
-    const buttonConfirmIndividual = document.getElementById('confirm-search-button')
+    const nav = document.querySelectorAll('.main-page__content__holerite__opcoes__item');
+    const opcoes = document.querySelectorAll('.main-page__content__holerite__opcao > div');
+    const mainOpcoes = document.querySelector('.main-page__content__holerite');
+    const FuncIndividual = document.getElementById('search-holerite');
+    const buttonConfirmIndividual = document.getElementById('confirm-search-button');
 
-    const buttonCancelarHolerite = document.querySelectorAll('.btn-cancelar-holerite')
+    const buttonCancelarHolerite = document.querySelectorAll('.btn-cancelar-holerite');
 
     nav.forEach((item, indice) => {
         item.addEventListener('click', () => {
-            mainOpcoes.style.display = 'none'
-            opcoes[indice].style.display = 'block'
-        })
-    })
+            mainOpcoes.style.display = 'none';
+            opcoes[indice].style.display = 'block';
+        });
+    });
 
     buttonCancelarHolerite.forEach(item => {
         item.addEventListener('click', () => {
-            opcoes.forEach(item => item.style.display = 'none')
-            document.querySelector('.main-page__content__holerite').style.display = 'block'
-        })
-    })
+            opcoes.forEach(item => item.style.display = 'none');
+            document.querySelector('.main-page__content__holerite').style.display = 'block';
+        });
+    });
 
     buttonConfirmIndividual.addEventListener('click', () => {
         const nomePesquisado = FuncIndividual.value.toLowerCase();
-
         const encontrado = array.find(item => item.nome.toLowerCase() === nomePesquisado);
 
         if (encontrado) {
-            const campoFunc = document.getElementById('nomeFunc')
-            document.getElementById('holeriteIndividual').style.display = 'none'
-            document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'block'
+            const campoFunc = document.getElementById('nomeFunc');
+            const selectHolerite = document.getElementById('tipos-holerite');
+            const horasTrab = document.getElementById('horasTrab');
 
-            campoFunc.value = encontrado.nome
-            campoFunc.readOnly = true
+            document.getElementById('holeriteIndividual').style.display = 'none';
+            document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'block';
+
+            campoFunc.value = encontrado.nome;
+            campoFunc.readOnly = true;
+
+            selectHolerite.addEventListener('change', () => {
+                if (selectHolerite.value === 'decimoTerceiro' || selectHolerite.value === 'ferias') {
+                    horasTrab.disabled = true; // Desativa o campo de horas trabalhadas
+                    horasTrab.value = 150
+                } else {
+                    horasTrab.disabled = false; // Habilita o campo de horas trabalhadas
+                }
+            });
+            const corpoTabelas = document.querySelector('.main-page__content__holerite__opcao__umFuncionario__content__tabelas');
+
+            document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').addEventListener('submit', () => {
+                const total = (encontrado.salario * horasTrab.value).toFixed(2)
+                const inss = parseFloat((total * 0.09).toFixed(2))
+                const vt = parseFloat((total * 0.06).toFixed(2))
+                const fgts = parseFloat((total * 0.08).toFixed(2))
+                const liquido = (((total - inss) - vt) - fgts).toFixed(2)
+
+                document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').reset()
+
+                //selecionando o funcionario
+                document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'none'
+                document.querySelector('.main-page__content__holerite__opcao__umFuncionario > .main-page__header').style.display = 'none'
+
+                const tabelasHTML = `
+                    <div class="box-princ">
+                        <div class="box1">
+                            <p>Empresa: <span>Startup Language</span></p>
+                            <p>Competência: <span>12 - 2023</span></p>
+                            <p>Descrição: <span>Pagamento - Dezembro 2023</span></p>
+                        </div>
+                        <div class="box2">
+                            <p>Data de vencimento: <span>05/12/2023</span></p>
+                            <p>Tipo de pagamento: <span>Pagamento de funcionário</span></p>
+                            <p>Tipo de Cálculo: <span>Por funcionário</span></p>
+                        </div>
+                    </div>
+                    <table class="first-table">
+                        <thead>
+                            <tr>
+                                <th colspan="3" class="title">Proventos</th>
+                            </tr>
+                            <tr class="primary">
+                                <td>Descrição</td>
+                                <td>Referência</td>
+                                <td>Valor</td>
+                            </tr>
+                            <tr class="secondary">
+                                <td>Horas trabalhadas</td>
+                                <td class="valores">${horasTrab.value}</td>
+                                <td class="valores">${total}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="3" class="title">Deduções</th>
+                            </tr>
+                            <tr class="primary">
+                                <td>Descrição</td>
+                                <td>Referência</td>
+                                <td>Valor</td>
+                            </tr>
+                            <tr class="secondary">
+                                <td>INSS</td>
+                                <td class="valores">9%</td>
+                                <td class="valores">${inss}</td>
+                            </tr>
+                            <tr class="secondary">
+                                <td>VT</td>
+                                <td class="valores">6%</td>
+                                <td class="valores">${vt}</td>
+                            </tr>
+                            <tr class="secondary">
+                                <td>FGTS</td>
+                                <td class="valores">8%</td>
+                                <td class="valores">${fgts}</td>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <td id="total" colspan="3">Total <span>${liquido}</span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="buttons">
+                        <button class="button button-naoEnvia">Cancelar</button>                    
+                        <button class="button button-enviar-holerite">Enviar</button>
+                    </div>
+            `;
+                corpoTabelas.innerHTML = tabelasHTML
+            });
+            function tratarClique(e) {
+                if (e.target.classList.contains('button-enviar-holerite')) {
+                    alert('holerite enviado')
+                    corpoTabelas.innerHTML = ''
+                    document.getElementById('holeriteIndividual').style.display = 'block';
+                }
+                if (e.target.classList.contains('button-naoEnvia')) {
+                    alert('holerite cancelado')
+                    corpoTabelas.innerHTML = ''
+                    document.getElementById('holeriteIndividual').style.display = 'block'
+                }
+
+                // Remover o event listener após o clique ter sido tratado
+                corpoTabelas.removeEventListener('click', tratarClique);
+            }
+
+            // Adicionar o event listener ao elemento desejado com a opção once
+            corpoTabelas.addEventListener('click', tratarClique, { once: true });
         } else {
-            alert('funcionario não encontrado')
+            alert('funcionário não encontrado');
         }
-    })
 
+        const buttonCancelHolerite = document.querySelector('.btn-cancelar-holerite-umFunc')
+
+        //botão cancelar na opção de um funcionario
+        buttonCancelHolerite.addEventListener('click', () => {
+            document.getElementById('holeriteIndividual').style.display = 'block'
+            //removendo o formulario de um funcionario
+            document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'none'
+        })
+    });
 }
+
