@@ -239,6 +239,8 @@ function Holerite(array) {
 
     const buttonCancelarHolerite = document.querySelectorAll('.btn-cancelar-holerite');
 
+
+
     nav.forEach((item, indice) => {
         item.addEventListener('click', () => {
             mainOpcoes.style.display = 'none';
@@ -271,7 +273,7 @@ function Holerite(array) {
             selectHolerite.addEventListener('change', () => {
                 if (selectHolerite.value === 'decimoTerceiro' || selectHolerite.value === 'ferias') {
                     horasTrab.disabled = true; // Desativa o campo de horas trabalhadas
-                    horasTrab.value = 150
+                    // horasTrab.value = 150
                 } else {
                     horasTrab.disabled = false; // Habilita o campo de horas trabalhadas
                 }
@@ -279,19 +281,18 @@ function Holerite(array) {
             const corpoTabelas = document.querySelector('.main-page__content__holerite__opcao__umFuncionario__content__tabelas');
 
             document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').addEventListener('submit', () => {
-                const total = (encontrado.salario * horasTrab.value).toFixed(2)
-                const inss = parseFloat((total * 0.09).toFixed(2))
-                const vt = parseFloat((total * 0.06).toFixed(2))
-                const fgts = parseFloat((total * 0.08).toFixed(2))
-                const liquido = (((total - inss) - vt) - fgts).toFixed(2)
-
-                document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').reset()
+                // const horasTrab = document.getElementById('horasTrab');
+                let total = (encontrado.salario * horasTrab.value).toFixed(2)
+                let inss = parseFloat((total * 0.09).toFixed(2))
+                let vt = parseFloat((total * 0.06).toFixed(2))
+                let fgts = parseFloat((total * 0.08).toFixed(2))
+                let liquido = (((total - inss) - vt) - fgts).toFixed(2)
 
                 //selecionando o funcionario
                 document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'none'
                 document.querySelector('.main-page__content__holerite__opcao__umFuncionario > .main-page__header').style.display = 'none'
 
-                const tabelasHTML = `
+                let tabelasHTML = `
                     <div class="box-princ">
                         <div class="box1">
                             <p>Empresa: <span>Startup Language</span></p>
@@ -332,7 +333,7 @@ function Holerite(array) {
                                 <td>Valor</td>
                             </tr>
                             <tr class="secondary">
-                                <td>INSS</td>
+                                <td>INSS</td>   
                                 <td class="valores">9%</td>
                                 <td class="valores">${inss}</td>
                             </tr>
@@ -365,19 +366,18 @@ function Holerite(array) {
                     alert('holerite enviado')
                     corpoTabelas.innerHTML = ''
                     document.getElementById('holeriteIndividual').style.display = 'block';
+                    document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').reset()
                 }
                 if (e.target.classList.contains('button-naoEnvia')) {
                     alert('holerite cancelado')
                     corpoTabelas.innerHTML = ''
                     document.getElementById('holeriteIndividual').style.display = 'block'
+                    document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').reset()
                 }
-
-                // Remover o event listener após o clique ter sido tratado
-                corpoTabelas.removeEventListener('click', tratarClique);
             }
 
             // Adicionar o event listener ao elemento desejado com a opção once
-            corpoTabelas.addEventListener('click', tratarClique, { once: true });
+            corpoTabelas.addEventListener('click', tratarClique);
         } else {
             alert('funcionário não encontrado');
         }
@@ -391,5 +391,170 @@ function Holerite(array) {
             document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'none'
         })
     });
+
+    //botão de cancelar holerite na opção de todos os funcionários
+    document.querySelector('.btn-cancel-todosFunc').addEventListener('click', () => {
+        document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios').style.display = 'none'
+        document.querySelector('.main-page__content__holerite').style.display = 'block'
+    })
+
+    document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').addEventListener('submit', () => {
+        const holeriteTodosFunc = document.getElementById('tipos-holerite-todos')
+
+        const confirmar = confirm(`Tem certeza que deseja gerar o holerite de todos os funcionarios ?`);
+
+        if (confirmar) {
+            let tabelas = ''
+            tabelas = `
+                <div class="box-princ box-princ--first">
+                    <div class="box1">
+                        <p>Empresa: <span>Startup Language</span></p>
+                        <p>Competência: <span>12 - 2023</span></p>
+                        <p>Descrição: <span>Pagamento - Dezembro 2023</span></p>
+                    </div>
+                    <div class="box2">
+                        <p>Data de vencimento: <span>05/12/2023</span></p>
+                        <p>Tipo de pagamento: <span>Pagamento de funcionário</span></p>
+                        <p>Tipo de Cálculo: <span>Por funcionário</span></p>
+                    </div>
+                </div>
+            `
+            array.forEach(trabalhador => {
+                const total = (trabalhador.salario * 150).toFixed(2);
+                const inss = parseFloat((total * 0.09).toFixed(2));
+                const vt = parseFloat((total * 0.06).toFixed(2));
+                const fgts = parseFloat((total * 0.08).toFixed(2));
+                const liquido = (((total - inss) - vt) - fgts).toFixed(2);
+
+                const liquido13 = ((total - inss) - fgts).toFixed(2);
+
+                if (holeriteTodosFunc.value === 'pagamento') {
+                    tabelas += `
+                        <div class="funcIndividual">
+                            <div class="box-princ">
+                                <div class="box1">
+                                    <p>Funcionário: <span>${trabalhador.nome}</span></p>
+                                </div>
+                                <div class="box2">
+                                    <p>Cargo: <span>${trabalhador.cargo}</span></p>
+                                </div>
+                            </div>
+                            <table class="first-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" class="title">Proventos</th>
+                                    </tr>
+                                    <tr class="primary">
+                                        <td>Descrição</td>
+                                        <td>Referência</td>
+                                        <td>Valor</td>
+                                    </tr>
+                                    <tr class="secondary">
+                                        <td>Horas trabalhadas</td>
+                                        <td class="valores">${150}</td>
+                                        <td class="valores">${total}</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" class="title">Deduções</th>
+                                    </tr>
+                                    <tr class="primary">
+                                        <td>Descrição</td>
+                                        <td>Referência</td>
+                                        <td>Valor</td>
+                                    </tr>
+                                    <tr class="secondary">
+                                        <td>INSS</td>   
+                                        <td class="valores">9%</td>
+                                        <td class="valores">${inss}</td>
+                                    </tr>
+                                    <tr class="secondary">
+                                        <td>VT</td>
+                                        <td class="valores">6%</td>
+                                        <td class="valores">${vt}</td>
+                                    </tr>
+                                    <tr class="secondary">
+                                        <td>FGTS</td>
+                                        <td class="valores">8%</td>
+                                        <td class="valores">${fgts}</td>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td id="total" colspan="3">Total <span>${liquido}</span></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    `;
+                } else {
+                    tabelas += `
+                        <div class="funcIndividual">
+                            <div class="box-princ">
+                                <div class="box1">
+                                    <p>Funcionário: <span>${trabalhador.nome}</span></p>
+                                </div>
+                                <div class="box2">
+                                    <p>Cargo: <span>${trabalhador.cargo}</span></p>
+                                </div>
+                            </div>
+                            <table class="first-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" class="title">Proventos</th>
+                                    </tr>
+                                    <tr class="primary">
+                                        <td>Descrição</td>
+                                        <td>Referência</td>
+                                        <td>Valor</td>
+                                    </tr>
+                                    <tr class="secondary">
+                                        <td>Horas trabalhadas</td>
+                                        <td class="valores">${150}</td>
+                                        <td class="valores">${total}</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" class="title">Deduções</th>
+                                    </tr>
+                                    <tr class="primary">
+                                        <td>Descrição</td>
+                                        <td>Referência</td>
+                                        <td>Valor</td>
+                                    </tr>
+                                    <tr class="secondary">
+                                        <td>INSS</td>   
+                                        <td class="valores">9%</td>
+                                        <td class="valores">${inss}</td>
+                                    </tr>
+                                    <tr class="secondary">
+                                        <td>FGTS</td>
+                                        <td class="valores">8%</td>
+                                        <td class="valores">${fgts}</td>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td id="total" colspan="3">Total <span>${liquido13}</span></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    `;
+                }
+            })
+            const corpoTabelasTodosFunc = document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__tabelas');
+            corpoTabelasTodosFunc.innerHTML = tabelas
+            document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').style.display = 'none'
+        } else {
+            alert('operação cancelada')
+        }
+    })
 }
 
