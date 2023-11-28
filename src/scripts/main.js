@@ -273,7 +273,7 @@ function Holerite(array) {
             selectHolerite.addEventListener('change', () => {
                 if (selectHolerite.value === 'decimoTerceiro' || selectHolerite.value === 'ferias') {
                     horasTrab.disabled = true; // Desativa o campo de horas trabalhadas
-                    // horasTrab.value = 150
+                    horasTrab.value = 150
                 } else {
                     horasTrab.disabled = false; // Habilita o campo de horas trabalhadas
                 }
@@ -281,18 +281,84 @@ function Holerite(array) {
             const corpoTabelas = document.querySelector('.main-page__content__holerite__opcao__umFuncionario__content__tabelas');
 
             document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').addEventListener('submit', () => {
-                // const horasTrab = document.getElementById('horasTrab');
+                let tabelasHTML = ''
                 let total = (encontrado.salario * horasTrab.value).toFixed(2)
                 let inss = parseFloat((total * 0.09).toFixed(2))
                 let vt = parseFloat((total * 0.06).toFixed(2))
                 let fgts = parseFloat((total * 0.08).toFixed(2))
                 let liquido = (((total - inss) - vt) - fgts).toFixed(2)
 
+                let liquidoferias = ((total - inss) - fgts).toFixed(2)
+
                 //selecionando o funcionario
                 document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'none'
                 document.querySelector('.main-page__content__holerite__opcao__umFuncionario > .main-page__header').style.display = 'none'
 
-                let tabelasHTML = `
+                if (selectHolerite.value === 'decimoTerceiro' || selectHolerite.value === 'ferias') {
+                    tabelasHTML = `
+                    <div class="box-princ">
+                        <div class="box1">
+                            <p>Empresa: <span>Startup Language</span></p>
+                            <p>Competência: <span>12 - 2023</span></p>
+                            <p>Descrição: <span>Pagamento - Dezembro 2023</span></p>
+                        </div>
+                        <div class="box2">
+                            <p>Data de vencimento: <span>05/12/2023</span></p>
+                            <p>Tipo de pagamento: <span>Pagamento de funcionário</span></p>
+                            <p>Tipo de Cálculo: <span>Por funcionário</span></p>
+                        </div>
+                    </div>
+                    <table class="first-table">
+                        <thead>
+                            <tr>
+                                <th colspan="3" class="title">Proventos</th>
+                            </tr>
+                            <tr class="primary">
+                                <td>Descrição</td>
+                                <td>Referência</td>
+                                <td>Valor</td>
+                            </tr>
+                            <tr class="secondary">
+                                <td>Horas trabalhadas</td>
+                                <td class="valores">${horasTrab.value}</td>
+                                <td class="valores">${total}</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="3" class="title">Deduções</th>
+                            </tr>
+                            <tr class="primary">
+                                <td>Descrição</td>
+                                <td>Referência</td>
+                                <td>Valor</td>
+                            </tr>
+                            <tr class="secondary">
+                                <td>INSS</td>   
+                                <td class="valores">9%</td>
+                                <td class="valores">${inss}</td>
+                            </tr>
+                            <tr class="secondary">
+                                <td>FGTS</td>
+                                <td class="valores">8%</td>
+                                <td class="valores">${fgts}</td>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <td id="total" colspan="3">Total <span>${liquidoferias}</span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="buttons">
+                        <button class="button button-naoEnvia">Cancelar</button>                    
+                        <button class="button button-enviar-holerite">Enviar</button>
+                    </div>
+            `;
+                } else {
+                    tabelasHTML = `
                     <div class="box-princ">
                         <div class="box1">
                             <p>Empresa: <span>Startup Language</span></p>
@@ -359,6 +425,7 @@ function Holerite(array) {
                         <button class="button button-enviar-holerite">Enviar</button>
                     </div>
             `;
+                }
                 corpoTabelas.innerHTML = tabelasHTML
             });
             function tratarClique(e) {
