@@ -197,6 +197,12 @@
                 #total {
                     background-color: #FFE166;
                 }
+
+                .buttons {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 40px;
+                }
             }
 
             &__form {

@@ -549,9 +549,30 @@ function Holerite(array) {
                     `;
                 }
             })
+            tabelas += `
+                <div class="buttons">
+                    <button class="button button-cancelaHolerite-todos">Cancelar</button>                    
+                    <button class="button button-enviar-holerite-todos">Enviar</button>
+                </div>
+            `
+
             const corpoTabelasTodosFunc = document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__tabelas');
             corpoTabelasTodosFunc.innerHTML = tabelas
             document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').style.display = 'none'
+
+            corpoTabelasTodosFunc.addEventListener('click', (e) => {
+                if (e.target.classList.contains('button-cancelaHolerite-todos')) {
+                    corpoTabelasTodosFunc.innerHTML = ''
+                    alert('operação cancelada')
+                    document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').style.display = 'block'
+                }
+                if (e.target.classList.contains('button-enviar-holerite-todos')) {
+                    corpoTabelasTodosFunc.innerHTML = ''
+                    alert('Holerites enviados')
+                    document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').style.display = 'block'
+                }
+            })
+
         } else {
             alert('operação cancelada')
         }
