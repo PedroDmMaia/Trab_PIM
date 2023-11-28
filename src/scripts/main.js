@@ -55,22 +55,22 @@ function FuncionariosCad() {
         e.preventDefault()
 
         if (opcao.value === 'professor') {
-            novoFuncionario = new Professor(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value, inputs[5].value)
+            novoFuncionario = new Professor(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value)
             Trabalhadores.push(novoFuncionario)
         }
 
         if (opcao.value === 'Rh') {
-            novoFuncionario = new RH(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value, inputs[5].value)
+            novoFuncionario = new RH(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value)
             Trabalhadores.push(novoFuncionario)
         }
 
         if (opcao.value === 'Ti') {
-            novoFuncionario = new TI(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value, inputs[5].value)
+            novoFuncionario = new TI(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value)
             Trabalhadores.push(novoFuncionario)
         }
 
         if (opcao.value === 'secretaria') {
-            novoFuncionario = new Secrataria(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value, inputs[5].value)
+            novoFuncionario = new Secrataria(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value)
             Trabalhadores.push(novoFuncionario)
         }
 
@@ -289,9 +289,9 @@ function Holerite(array) {
                 let inss = parseFloat((total * 0.09).toFixed(2))
                 let vt = parseFloat((total * 0.06).toFixed(2))
                 let fgts = parseFloat((total * 0.08).toFixed(2))
-                let liquido = (((total - inss) - vt) - fgts).toFixed(2)
+                let liquido = ((total - inss) - vt).toFixed(2)
 
-                let liquidoferias = ((total - inss) - fgts).toFixed(2)
+                let liquidoferias = (total - inss).toFixed(2)
 
                 //selecionando o funcionario
                 document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'none'
