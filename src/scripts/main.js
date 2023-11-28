@@ -51,7 +51,8 @@ function FuncionariosCad() {
 
     let novoFuncionario = ''
 
-    form.addEventListener('submit', () => {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
 
         if (opcao.value === 'professor') {
             novoFuncionario = new Professor(inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value, inputs[5].value)
@@ -280,7 +281,9 @@ function Holerite(array) {
             });
             const corpoTabelas = document.querySelector('.main-page__content__holerite__opcao__umFuncionario__content__tabelas');
 
-            document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').addEventListener('submit', () => {
+            document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').addEventListener('submit', (e) => {
+                e.preventDefault()
+
                 let tabelasHTML = ''
                 let total = (encontrado.salario * horasTrab.value).toFixed(2)
                 let inss = parseFloat((total * 0.09).toFixed(2))
@@ -465,7 +468,8 @@ function Holerite(array) {
         document.querySelector('.main-page__content__holerite').style.display = 'block'
     })
 
-    document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').addEventListener('submit', () => {
+    document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').addEventListener('submit', (e) => {
+        e.preventDefault()
         const holeriteTodosFunc = document.getElementById('tipos-holerite-todos')
 
         const confirmar = confirm(`Tem certeza que deseja gerar o holerite de todos os funcionarios ?`);
