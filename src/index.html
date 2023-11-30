@@ -43,7 +43,7 @@
                     <li class="main-page__side-bar__container__item main-page__side-bar__container__item--active">
                         <a href="#">
                             <img src="./images/graphic.png" alt="">
-                            <p>Painel de controle</p>
+                            <p>Painel de controle férias/horas</p>
                         </a>
                     </li>
                     <li class="main-page__side-bar__container__item">
@@ -72,11 +72,40 @@
                         <h3>RH</h3>
                     </div>
                 </div>
-                <div class="main-page__content__painel__box">
-                    <p>Saldo - Novembro</p>
-                    <h3>R$ 28.402,00</h3>
+                <ul class="main-page__content__painel__container">
+                    <li class="main-page__content__painel__container__item">
+                        <a class="button">Lançamento de horas</a>
+                    </li>
+                    <li class="main-page__content__painel__container__item">
+                        <a class="button">Lançamento de férias</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main-page__content__painel__opcoes">
+
+                <div class="main-page__content__painel__opcoes__apontamentoHoras">
+                    <div class="main-page__header">
+                        <h2>Lançamento de horas</h2>
+                        <div>
+                            <img src="./images/icons8-usuário-96.png" alt="">
+                            <h3>RH</h3>
+                        </div>
+                    </div>
+                    <div class="main-page__content__painel__opcoes__apontamentoHoras__search">
+                        <div class="main-page__content__painel__opcoes__apontamentoHoras__search__container">
+                            <input id="campoLancaHoras" type="text" placeholder="digite o nome do funcionário">
+                            <button id="searchLancaHoras" title="pesquisar">
+                                <img src="./images/search-interface-symbol.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+                    <button class="button btn-cancelar-lancaHoras btn-cancel1" type="button">Cancelar</button>
+                    <div id="colocaHora"></div>
                 </div>
-                <img src="./images/Captura de tela 2023-11-13 131912.png" alt="">
+
+                <div></div>
+
             </div>
 
             <div class="main-page__content__funcionarios main">
@@ -237,10 +266,6 @@
                             <div class="main-page__content__opcoes__cadastrar__form__input">
                                 <label for="nomeFunc">Funcionário</label>
                                 <input id="nomeFunc" type="text" required>
-                            </div>
-                            <div class="main-page__content__opcoes__cadastrar__form__input">
-                                <label for="horasTrab">Horas Trabalhadas</label>
-                                <input id="horasTrab" type="number" max="240" required>
                             </div>
                             <div class="main-page__content__opcoes__cadastrar__form__input">
                                 <label for="tipos">Tipo de Holerite: </label>

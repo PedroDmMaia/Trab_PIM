@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     TrocaConteudo()
+    PainelControle(Trabalhadores)
     FuncionariosCad()
     SelecionaOpcao()
     funcionariosAlt(Trabalhadores)
@@ -22,6 +23,7 @@ function TrocaConteudo() {
     const contents = document.querySelectorAll('.main-page__content > div.main')
     const opcoes = document.querySelectorAll('.main-page__content__opcoes > div')
     const opcoesHolerite = document.querySelectorAll('.main-page__content__holerite__opcao > div')
+    const opcoesPainel = document.querySelectorAll('.main-page__content__painel__opcoes > div')
 
     liItems.forEach((item, indice) => {
         item.addEventListener('click', () => {
@@ -36,11 +38,144 @@ function TrocaConteudo() {
             contents.forEach(item => item.style.display = 'none')
             opcoes.forEach(item => item.style.display = 'none')
             opcoesHolerite.forEach(item => item.style.display = 'none')
+            opcoesPainel.forEach(item => item.style.display = 'none')
 
             //mostra somente o conteudo referente ao indice
             contents[indice].style.display = 'flex';
         });
     });
+}
+
+function PainelControle(array) {
+    const opcoes = document.querySelectorAll('.main-page__content__painel__container__item')
+    const containerOpcoes = document.querySelectorAll('.main-page__content__painel__opcoes > div')
+    const painel = document.querySelector('.main-page__content__painel')
+
+    opcoes.forEach((item, indice) => {
+        item.addEventListener('click', () => {
+            painel.style.display = 'none'
+
+            document.querySelector('.main-page__content__painel__opcoes').style.display = 'block'
+            containerOpcoes.forEach(item => item.style.display = 'none')
+            containerOpcoes[indice].style.display = 'block'
+        })
+    })
+
+    const buttoncancel = document.querySelectorAll('.btn-cancelar-lancaHoras')
+
+    buttoncancel.forEach(item => {
+        item.addEventListener('click', () => {
+            containerOpcoes.forEach(item => item.style.display = 'none')
+            painel.style.display = 'flex'
+            document.getElementById('colocaHora').style.display = 'none'
+            console.log('oi')
+        })
+    })
+
+    const campoLancaHorario = document.getElementById('campoLancaHoras')
+    const buttonLancaHoras = document.getElementById('searchLancaHoras')
+
+    buttonLancaHoras.addEventListener('click', () => {
+        document.getElementById('colocaHora').style.display = 'block'
+        document.querySelector('.main-page__content__painel__opcoes__apontamentoHoras__search').style.display = 'none'
+        document.querySelector('.btn-cancel1').style.display = 'none'
+
+        const containerCampos = document.getElementById('colocaHora');
+        containerCampos.innerHTML = ''
+
+        nomePesquisado = campoLancaHorario.value.toLowerCase()
+
+        const encontrado = array.find(item => item.nome === nomePesquisado)
+
+        if (encontrado) {
+
+            const titulo = document.createElement('h3')
+            titulo.textContent = `funcionário: ${encontrado.nome}`
+            containerCampos.appendChild(titulo)
+
+            for (let i = 1; i <= 30; i++) {
+                const divCampo = document.createElement('div');
+                divCampo.classList.add('campo');
+
+                const label = document.createElement('label');
+                label.textContent = `Horário ${i}:`;
+
+                const inputEntrada = document.createElement('input');
+                inputEntrada.type = 'time';
+                inputEntrada.id = `entrada${i}`;
+
+                const inputSaida = document.createElement('input');
+                inputSaida.type = 'time';
+                inputSaida.id = `saida${i}`;
+
+                divCampo.appendChild(label);
+                divCampo.appendChild(inputEntrada);
+                divCampo.appendChild(inputSaida);
+
+                containerCampos.appendChild(divCampo);
+            }
+            const divButtons = document.createElement('div')
+            divButtons.classList.add('buttons')
+
+            const buttonCalcula = document.createElement('button')
+            buttonCalcula.type = 'button'
+            buttonCalcula.classList.add('button')
+            buttonCalcula.classList.add('btn-calcula-hora')
+            buttonCalcula.textContent = 'calcular'
+
+            const buttonCancela = document.createElement('button')
+            buttonCancela.type = 'button'
+            buttonCancela.classList.add('button')
+            buttonCancela.classList.add('btn-cancelar-lancaHoras2')
+            buttonCancela.textContent = 'cancelar'
+
+            divButtons.appendChild(buttonCancela)
+            divButtons.appendChild(buttonCalcula)
+
+            containerCampos.appendChild(divButtons)
+
+            const calcularDiferencaMinutos = (horaInicial, horaFinal) => {
+                const [horasInicial, minutosInicial] = horaInicial.split(':');
+                const [horasFinal, minutosFinal] = horaFinal.split(':');
+
+                const tempoInicialMinutos = parseInt(horasInicial) * 60 + parseInt(minutosInicial);
+                const tempoFinalMinutos = parseInt(horasFinal) * 60 + parseInt(minutosFinal);
+
+                return tempoFinalMinutos - tempoInicialMinutos;
+            };
+
+            const calcularHorasDiarias = (event) => {
+                event.preventDefault();
+
+                let totalHoras = 0;
+
+                for (let i = 1; i <= 30; i++) {
+                    const entrada = document.getElementById(`entrada${i}`).value;
+                    const saida = document.getElementById(`saida${i}`).value;
+
+                    const diferencaMinutos = calcularDiferencaMinutos(entrada, saida);
+                    const horas = parseInt(Math.ceil(diferencaMinutos / 60));
+                    totalHoras += horas;
+                }
+
+                alert('informações salvas')
+                document.querySelector('.main-page__content__painel__opcoes__apontamentoHoras__search').style.display = 'flex'
+                document.querySelector('.btn-cancel1').style.display = 'block'
+                encontrado.horasTotal = totalHoras
+                containerCampos.innerHTML = ''
+            };
+
+            document.querySelector('.btn-cancelar-lancaHoras2').addEventListener('click', () => {
+                alert('operação cancelada')
+                containerCampos.innerHTML = ''
+                document.querySelector('.main-page__content__painel__opcoes__apontamentoHoras__search').style.display = 'flex'
+                document.querySelector('.btn-cancel1').style.display = 'block'
+            })
+
+            document.querySelector('.btn-calcula-hora').addEventListener('click', calcularHorasDiarias)
+        }
+    })
+
 }
 
 function FuncionariosCad() {
@@ -193,6 +328,7 @@ function funcionariosAlt(array) {
             });
 
             cancelButton.addEventListener('click', () => {
+                alert(`Operação cancelada`);
                 corpoForm.innerHTML = ''
                 document.querySelector('.main-page__content__opcoes__alterar__footer').style.display = 'block';
             })
@@ -285,13 +421,14 @@ function Holerite(array) {
                 e.preventDefault()
 
                 let tabelasHTML = ''
-                let total = (encontrado.salario * horasTrab.value).toFixed(2)
+                let total = (encontrado.salario * encontrado.horasTotal).toFixed(2)
                 let inss = parseFloat((total * 0.09).toFixed(2))
                 let vt = parseFloat((total * 0.06).toFixed(2))
                 let fgts = parseFloat((total * 0.08).toFixed(2))
                 let liquido = ((total - inss) - vt).toFixed(2)
 
-                let liquidoferias = (total - inss).toFixed(2)
+                let totalFerias = (encontrado.salario * 150)
+                let liquidoferias = (totalFerias - inss).toFixed(2)
 
                 //selecionando o funcionario
                 document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'none'
@@ -323,8 +460,8 @@ function Holerite(array) {
                             </tr>
                             <tr class="secondary">
                                 <td>Horas trabalhadas</td>
-                                <td class="valores">${horasTrab.value}</td>
-                                <td class="valores">${total}</td>
+                                <td class="valores">${150}</td>
+                                <td class="valores">${totalFerias}</td>
                             </tr>
                         </thead>
                     </table>
@@ -359,7 +496,7 @@ function Holerite(array) {
                         <button class="button button-naoEnvia">Cancelar</button>                    
                         <button class="button button-enviar-holerite">Enviar</button>
                     </div>
-            `;
+                `;
                 } else {
                     tabelasHTML = `
                     <div class="box-princ">
@@ -386,7 +523,7 @@ function Holerite(array) {
                             </tr>
                             <tr class="secondary">
                                 <td>Horas trabalhadas</td>
-                                <td class="valores">${horasTrab.value}</td>
+                                <td class="valores">${encontrado.horasTotal}</td>
                                 <td class="valores">${total}</td>
                             </tr>
                         </thead>
@@ -427,27 +564,30 @@ function Holerite(array) {
                         <button class="button button-naoEnvia">Cancelar</button>                    
                         <button class="button button-enviar-holerite">Enviar</button>
                     </div>
-            `;
+                `;
                 }
                 corpoTabelas.innerHTML = tabelasHTML
-            });
-            function tratarClique(e) {
-                if (e.target.classList.contains('button-enviar-holerite')) {
-                    alert('holerite enviado')
-                    corpoTabelas.innerHTML = ''
-                    document.getElementById('holeriteIndividual').style.display = 'block';
-                    document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').reset()
+                function tratarClique(e) {
+                    if (e.target.classList.contains('button-enviar-holerite')) {
+                        if (typeof total !== 'number') {
+                            alert('não é possivel enviar as informações, por gentileza, cadastre as horas do funcionário')
+                        } else {
+                            alert('holerite enviado')
+                            corpoTabelas.innerHTML = ''
+                            document.getElementById('holeriteIndividual').style.display = 'block';
+                            document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').reset()
+                        }
+                    }
+                    if (e.target.classList.contains('button-naoEnvia')) {
+                        alert('holerite cancelado')
+                        corpoTabelas.innerHTML = ''
+                        document.getElementById('holeriteIndividual').style.display = 'block'
+                        document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').reset()
+                    }
                 }
-                if (e.target.classList.contains('button-naoEnvia')) {
-                    alert('holerite cancelado')
-                    corpoTabelas.innerHTML = ''
-                    document.getElementById('holeriteIndividual').style.display = 'block'
-                    document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').reset()
-                }
-            }
 
-            // Adicionar o event listener ao elemento desejado com a opção once
-            corpoTabelas.addEventListener('click', tratarClique);
+                corpoTabelas.addEventListener('click', tratarClique);
+            });
         } else {
             alert('funcionário não encontrado');
         }
@@ -491,13 +631,14 @@ function Holerite(array) {
                 </div>
             `
             array.forEach(trabalhador => {
-                const total = (trabalhador.salario * 150).toFixed(2);
+                const total = (trabalhador.salario * trabalhador.horasTotal).toFixed(2);
                 const inss = parseFloat((total * 0.09).toFixed(2));
                 const vt = parseFloat((total * 0.06).toFixed(2));
                 const fgts = parseFloat((total * 0.08).toFixed(2));
-                const liquido = (((total - inss) - vt) - fgts).toFixed(2);
+                const liquido = ((total - inss) - vt).toFixed(2);
 
-                const liquido13 = ((total - inss) - fgts).toFixed(2);
+                const total13 = (trabalhador.salario * 150).toFixed(2);
+                const liquido13 = (total13 - inss).toFixed(2);
 
                 if (holeriteTodosFunc.value === 'pagamento') {
                     tabelas += `
@@ -585,7 +726,7 @@ function Holerite(array) {
                                     <tr class="secondary">
                                         <td>Horas trabalhadas</td>
                                         <td class="valores">${150}</td>
-                                        <td class="valores">${total}</td>
+                                        <td class="valores">${total13}</td>
                                     </tr>
                                 </thead>
                             </table>
@@ -638,9 +779,14 @@ function Holerite(array) {
                     document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').style.display = 'block'
                 }
                 if (e.target.classList.contains('button-enviar-holerite-todos')) {
-                    corpoTabelasTodosFunc.innerHTML = ''
-                    alert('Holerites enviados')
-                    document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').style.display = 'block'
+                    if (typeof total !== 'number') {
+                        alert('não é possivel enviar as informações, por gentileza, cadastre as horas do funcionário')
+                    } else {
+                        alert('holerite enviado')
+                        corpoTabelasTodosFunc.innerHTML = ''
+                        alert('Holerites enviados')
+                        document.querySelector('.main-page__content__holerite__opcao__todosFuncionarios__form').style.display = 'block'
+                    }
                 }
             })
 
