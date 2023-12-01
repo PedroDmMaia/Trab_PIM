@@ -304,7 +304,7 @@ function PainelControle(array) {
                 document.querySelector('.main-page__content__painel__opcoes__apontamentoFerias__search__container').style.display = 'flex'
                 document.querySelector('.btn-lancaFerias').style.display = 'block'
 
-                ferias = {
+                let ferias = {
                     dataInicio: dataInicioInput.value,
                     dataTermino: dataTerminoInput.value
                 }
