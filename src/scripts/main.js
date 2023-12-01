@@ -174,18 +174,133 @@ function PainelControle(array) {
             document.querySelector('.btn-calcula-hora').addEventListener('click', calcularHorasDiarias)
         }
     })
+
     document.getElementById('searchLancaFerias').addEventListener('click', () => {
         const nomePesquisado = document.getElementById('campoLancaFerias')
-
         const encontrado = array.find(item => item.nome === nomePesquisado.value.toLowerCase())
 
         const corpoFerias = document.getElementById('colocaFerias')
 
         if (encontrado) {
             document.querySelector('.main-page__content__painel__opcoes__apontamentoFerias__search__container').style.display = 'none'
-            document.querySelector('.btn-cancelar-lancaFerias').style.display = 'none'
+            document.querySelector('.btn-lancaFerias').style.display = 'none'
 
-            const formulario = document.creat('form')
+            // Criando os elementos do formulário
+            const form = document.createElement('form');
+            form.classList.add('main-page__content__opcoes__cadastrar__form');
+            form.classList.add('form-enviarFerias');
+
+            const campos = [
+                { label: 'Data de Início das Férias', id: 'dataInicio', type: 'date', required: true },
+                { label: 'Data de Término das Férias', id: 'dataTermino', type: 'date', required: true }
+            ];
+
+            campos.forEach((campo) => {
+                const divInput = document.createElement('div');
+                divInput.classList.add('main-page__content__opcoes__cadastrar__form__input');
+
+                const label = document.createElement('label');
+                label.setAttribute('for', campo.id);
+                label.textContent = campo.label;
+
+                const input = document.createElement('input');
+                input.id = campo.id;
+                input.type = campo.type;
+                if (campo.required) {
+                    input.setAttribute('required', 'true');
+                }
+
+                divInput.appendChild(label);
+                divInput.appendChild(input);
+                form.appendChild(divInput);
+            });
+
+            // Botões "Cancelar" e "Salvar"
+            const divEnviar = document.createElement('div');
+            divEnviar.classList.add('main-page__content__opcoes__cadastrar__form__enviar');
+
+            const btnCancelar = document.createElement('button');
+            btnCancelar.classList.add('button', 'cancelar');
+            btnCancelar.setAttribute('type', 'button');
+            btnCancelar.textContent = 'Cancelar';
+
+            const btnSalvar = document.createElement('button');
+            btnSalvar.classList.add('button');
+            btnSalvar.setAttribute('type', 'submit');
+            btnSalvar.textContent = 'Salvar';
+
+            divEnviar.appendChild(btnCancelar);
+            divEnviar.appendChild(btnSalvar);
+            form.appendChild(divEnviar);
+
+            // Adicionando o formulário à página
+            corpoFerias.appendChild(form);
+
+            // Capturando os elementos do formulário
+            const dataInicioInput = document.getElementById('dataInicio');
+            const dataTerminoInput = document.getElementById('dataTermino');
+
+            // Adicionando o evento de mudança ao campo de início das férias
+            dataInicioInput.addEventListener('change', () => {
+                // Obtendo a data de início das férias
+                const dataInicio = new Date(dataInicioInput.value);
+
+                // Adicionando um mês à data de início para calcular a data de término
+                const umMesDepois = new Date(dataInicio.getFullYear(), dataInicio.getMonth() + 1, dataInicio.getDate());
+
+                // Formatando a data de término para o formato 'YYYY-MM-DD'
+                const ano = umMesDepois.getFullYear();
+                let mes = umMesDepois.getMonth() + 1;
+                mes = mes < 10 ? `0${mes}` : mes;
+                let dia = umMesDepois.getDate();
+                dia = dia < 10 ? `0${dia}` : dia;
+                const dataTermino = `${ano}-${mes}-${dia}`;
+
+                // Definindo o valor no campo de término das férias
+                dataTerminoInput.value = dataTermino;
+
+                // Tornando o campo de término das férias como somente leitura
+                dataTerminoInput.readOnly = true;
+            });
+
+            // Adicionando o evento de mudança ao campo de início das férias
+            dataInicioInput.addEventListener('change', () => {
+                // Obtendo a data de início das férias
+                const dataInicio = new Date(dataInicioInput.value);
+
+                // Adicionando um mês à data de início para calcular a data de término
+                const umMesDepois = new Date(dataInicio.getFullYear(), dataInicio.getMonth() + 1, dataInicio.getDate());
+
+                // Formatando a data de término para o formato 'YYYY-MM-DD'
+                const ano = umMesDepois.getFullYear();
+                let mes = umMesDepois.getMonth() + 1;
+                mes = mes < 10 ? `0${mes}` : mes;
+                let dia = umMesDepois.getDate();
+                dia = dia < 10 ? `0${dia}` : dia;
+                const dataTermino = `${ano}-${mes}-${dia}`;
+
+                // Definindo o valor no campo de término das férias
+                dataTerminoInput.value = dataTermino;
+
+                // Tornando o campo de término das férias como somente leitura
+                dataTerminoInput.readOnly = true;
+            });
+
+
+            document.querySelector('.form-enviarFerias').addEventListener('submit', (event) => {
+                event.preventDefault(); // Impedindo o recarregamento da página
+
+                alert('ferias lançadas com sucesso')
+
+                document.querySelector('.main-page__content__painel__opcoes__apontamentoFerias__search__container').style.display = 'flex'
+                document.querySelector('.btn-lancaFerias').style.display = 'block'
+
+                encontrado.ferias = ferias = {
+                    dataInicio: dataInicioInput.value,
+                    dataTermino: dataTerminoInput.value
+                }
+                corpoFerias.innerHTML = ''
+            })
 
         } else {
             alert('funcionario não encontrado')
@@ -315,17 +430,17 @@ function funcionariosAlt(array) {
             const divButtons = document.createElement('div')
             divButtons.classList.add('buttons-form')
 
-            const submitButton = document.createElement('button');
-            submitButton.type = 'submit';
-            submitButton.classList.add('button')
-            submitButton.textContent = 'Salvar';
-            divButtons.appendChild(submitButton);
-
             const cancelButton = document.createElement('button');
             cancelButton.type = 'click';
             cancelButton.classList.add('button')
             cancelButton.textContent = 'cancelar';
             divButtons.appendChild(cancelButton);
+
+            const submitButton = document.createElement('button');
+            submitButton.type = 'submit';
+            submitButton.classList.add('button')
+            submitButton.textContent = 'Salvar';
+            divButtons.appendChild(submitButton);
 
             form.appendChild(divButtons)
 
@@ -443,20 +558,21 @@ function Holerite(array) {
                 e.preventDefault()
 
                 let tabelasHTML = ''
+                encontrado.horasTotal = 172
                 let total = (encontrado.salario * encontrado.horasTotal).toFixed(2)
                 let inss = parseFloat((total * 0.09).toFixed(2))
                 let vt = parseFloat((total * 0.06).toFixed(2))
                 let fgts = parseFloat((total * 0.08).toFixed(2))
-                let liquido = ((total - inss) - vt).toFixed(2)
+                let liquido = (total - vt).toFixed(2)
 
-                let totalFerias = (encontrado.salario * 150)
-                let liquidoferias = (totalFerias - inss).toFixed(2)
+                let totalFerias = (encontrado.salario * 176)
+                let liquidoferias = parseFloat(totalFerias).toFixed(2)
 
                 //selecionando o funcionario
                 document.querySelector('.main-page__content__holerite__opcao__umFuncionario__form').style.display = 'none'
                 document.querySelector('.main-page__content__holerite__opcao__umFuncionario > .main-page__header').style.display = 'none'
 
-                if (selectHolerite.value === 'decimoTerceiro' || selectHolerite.value === 'ferias') {
+                if (selectHolerite.value === 'decimoTerceiro') {
                     tabelasHTML = `
                     <div class="box-princ">
                         <div class="box1">
@@ -482,7 +598,7 @@ function Holerite(array) {
                             </tr>
                             <tr class="secondary">
                                 <td>Horas trabalhadas</td>
-                                <td class="valores">${150}</td>
+                                <td class="valores">${176}</td>
                                 <td class="valores">${totalFerias}</td>
                             </tr>
                         </thead>
@@ -496,11 +612,6 @@ function Holerite(array) {
                                 <td>Descrição</td>
                                 <td>Referência</td>
                                 <td>Valor</td>
-                            </tr>
-                            <tr class="secondary">
-                                <td>INSS</td>   
-                                <td class="valores">9%</td>
-                                <td class="valores">${inss}</td>
                             </tr>
                             <tr class="secondary">
                                 <td>FGTS</td>
@@ -520,73 +631,128 @@ function Holerite(array) {
                     </div>
                 `;
                 } else {
-                    tabelasHTML = `
-                    <div class="box-princ">
-                        <div class="box1">
-                            <p>Empresa: <span>Startup Language</span></p>
-                            <p>Competência: <span>12 - 2023</span></p>
-                            <p>Descrição: <span>Pagamento - Dezembro 2023</span></p>
+                    if ('ferias' in encontrado) {
+                        tabelasHTML = `
+                        <div class="box-princ">
+                            <div class="box1">
+                                <p>Empresa: <span>Startup Language</span></p>
+                                <p>Competência: <span>12 - 2023</span></p>
+                                <p>Descrição: <span>Pagamento - Dezembro 2023</span></p>
+                            </div>
+                            <div class="box2">
+                                <p>Data de vencimento: <span>05/12/2023</span></p>
+                                <p>Tipo de pagamento: <span>Pagamento de funcionário</span></p>
+                                <p>Tipo de Cálculo: <span>Por funcionário</span></p>
+                            </div>
                         </div>
-                        <div class="box2">
-                            <p>Data de vencimento: <span>05/12/2023</span></p>
-                            <p>Tipo de pagamento: <span>Pagamento de funcionário</span></p>
-                            <p>Tipo de Cálculo: <span>Por funcionário</span></p>
+                        <table class="first-table">
+                            <thead>
+                                <tr>
+                                    <th colspan="3" class="title">Proventos</th>
+                                </tr>
+                                <tr class="primary">
+                                    <td>Descrição</td>
+                                    <td>Referência</td>
+                                    <td>Valor</td>
+                                </tr>
+                                <tr class="secondary">
+                                    <td>Horas trabalhadas</td>
+                                    <td class="valores">${176}</td>
+                                    <td class="valores">${totalFerias}</td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="3" class="title">Deduções</th>
+                                </tr>
+                                <tr class="primary">
+                                    <td>Descrição</td>
+                                    <td>Referência</td>
+                                    <td>Valor</td>
+                                </tr>
+                                <tr class="secondary">
+                                    <td>FGTS</td>
+                                    <td class="valores">8%</td>
+                                    <td class="valores">${fgts}</td>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td id="total" colspan="3">Total <span>${liquidoferias}</span></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="buttons">
+                            <button class="button button-naoEnvia">Cancelar</button>                    
+                            <button class="button button-enviar-holerite">Enviar</button>
                         </div>
-                    </div>
-                    <table class="first-table">
-                        <thead>
-                            <tr>
-                                <th colspan="3" class="title">Proventos</th>
-                            </tr>
-                            <tr class="primary">
-                                <td>Descrição</td>
-                                <td>Referência</td>
-                                <td>Valor</td>
-                            </tr>
-                            <tr class="secondary">
-                                <td>Horas trabalhadas</td>
-                                <td class="valores">${encontrado.horasTotal}</td>
-                                <td class="valores">${total}</td>
-                            </tr>
-                        </thead>
-                    </table>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th colspan="3" class="title">Deduções</th>
-                            </tr>
-                            <tr class="primary">
-                                <td>Descrição</td>
-                                <td>Referência</td>
-                                <td>Valor</td>
-                            </tr>
-                            <tr class="secondary">
-                                <td>INSS</td>   
-                                <td class="valores">9%</td>
-                                <td class="valores">${inss}</td>
-                            </tr>
-                            <tr class="secondary">
-                                <td>VT</td>
-                                <td class="valores">6%</td>
-                                <td class="valores">${vt}</td>
-                            </tr>
-                            <tr class="secondary">
-                                <td>FGTS</td>
-                                <td class="valores">8%</td>
-                                <td class="valores">${fgts}</td>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <td id="total" colspan="3">Total <span>${liquido}</span></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div class="buttons">
-                        <button class="button button-naoEnvia">Cancelar</button>                    
-                        <button class="button button-enviar-holerite">Enviar</button>
-                    </div>
-                `;
+                    `;
+                    } else {
+                        tabelasHTML = `
+                        <div class="box-princ">
+                            <div class="box1">
+                                <p>Empresa: <span>Startup Language</span></p>
+                                <p>Competência: <span>12 - 2023</span></p>
+                                <p>Descrição: <span>Pagamento - Dezembro 2023</span></p>
+                            </div>
+                            <div class="box2">
+                                <p>Data de vencimento: <span>05/12/2023</span></p>
+                                <p>Tipo de pagamento: <span>Pagamento de funcionário</span></p>
+                                <p>Tipo de Cálculo: <span>Por funcionário</span></p>
+                            </div>
+                        </div>
+                        <table class="first-table">
+                            <thead>
+                                <tr>
+                                    <th colspan="3" class="title">Proventos</th>
+                                </tr>
+                                <tr class="primary">
+                                    <td>Descrição</td>
+                                    <td>Referência</td>
+                                    <td>Valor</td>
+                                </tr>
+                                <tr class="secondary">
+                                    <td>Horas trabalhadas</td>
+                                    <td class="valores">${encontrado.horasTotal}</td>
+                                    <td class="valores">${total}</td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="3" class="title">Deduções</th>
+                                </tr>
+                                <tr class="primary">
+                                    <td>Descrição</td>
+                                    <td>Referência</td>
+                                    <td>Valor</td>
+                                </tr>
+                                <tr class="secondary">
+                                    <td>VT</td>
+                                    <td class="valores">6%</td>
+                                    <td class="valores">${vt}</td>
+                                </tr>
+                                <tr class="secondary">
+                                    <td>FGTS</td>
+                                    <td class="valores">8%</td>
+                                    <td class="valores">${fgts}</td>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td id="total" colspan="3">Total <span>${liquido}</span></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="buttons">
+                            <button class="button button-naoEnvia">Cancelar</button>                    
+                            <button class="button button-enviar-holerite">Enviar</button>
+                        </div>
+                    `;
+                    }
                 }
                 corpoTabelas.innerHTML = tabelasHTML
                 function tratarClique(e) {
@@ -653,22 +819,77 @@ function Holerite(array) {
                 </div>
             `
             array.forEach(trabalhador => {
-                trabalhador.horasTotal = 150
+                trabalhador.horasTotal = 172
                 const total = (trabalhador.salario * trabalhador.horasTotal).toFixed(2);
                 const inss = parseFloat((total * 0.09).toFixed(2));
                 const vt = parseFloat((total * 0.06).toFixed(2));
                 const fgts = parseFloat((total * 0.08).toFixed(2));
-                const liquido = ((total - inss) - vt).toFixed(2);
+                const liquido = (total - vt).toFixed(2);
 
-                const total13 = (trabalhador.salario * 150).toFixed(2);
-                const liquido13 = (total13 - inss).toFixed(2);
+                const total13 = (trabalhador.salario * 176).toFixed(2);
+                const liquido13 = parseFloat(total13).toFixed(2);
 
                 if (holeriteTodosFunc.value === 'pagamento') {
-                    tabelas += `
+                    if ('ferias' in trabalhador) {
+                        tabelas += `
                         <div class="funcIndividual">
                             <div class="box-princ">
                                 <div class="box1">
                                     <p>Funcionário: <span>${trabalhador.nome}</span></p>
+                                    <p>Tipo de Holerite: <span>Pagamento Férias</span></p>
+                                </div>
+                                <div class="box2">
+                                    <p>Cargo: <span>${trabalhador.cargo}</span></p>
+                                </div>
+                            </div>
+                            <table class="first-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" class="title">Proventos</th>
+                                    </tr>
+                                    <tr class="primary">
+                                        <td>Descrição</td>
+                                        <td>Referência</td>
+                                        <td>Valor</td>
+                                    </tr>
+                                    <tr class="secondary">
+                                        <td>Horas trabalhadas</td>
+                                        <td class="valores">${176}</td>
+                                        <td class="valores">${total13}</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" class="title">Deduções</th>
+                                    </tr>
+                                    <tr class="primary">
+                                        <td>Descrição</td>
+                                        <td>Referência</td>
+                                        <td>Valor</td>
+                                    </tr>
+                                    <tr class="secondary">
+                                        <td>FGTS</td>
+                                        <td class="valores">8%</td>
+                                        <td class="valores">${fgts}</td>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td id="total" colspan="3">Total <span>${liquido13}</span></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        `;
+                    } else {
+                        tabelas += `
+                        <div class="funcIndividual">
+                            <div class="box-princ">
+                                <div class="box1">
+                                    <p>Funcionário: <span>${trabalhador.nome}</span></p>
+                                    <p>Tipo de Holerite: <span>Pagamento</span></p>
                                 </div>
                                 <div class="box2">
                                     <p>Cargo: <span>${trabalhador.cargo}</span></p>
@@ -702,11 +923,6 @@ function Holerite(array) {
                                         <td>Valor</td>
                                     </tr>
                                     <tr class="secondary">
-                                        <td>INSS</td>   
-                                        <td class="valores">9%</td>
-                                        <td class="valores">${inss}</td>
-                                    </tr>
-                                    <tr class="secondary">
                                         <td>VT</td>
                                         <td class="valores">6%</td>
                                         <td class="valores">${vt}</td>
@@ -724,7 +940,9 @@ function Holerite(array) {
                                 </tfoot>
                             </table>
                         </div>
-                    `;
+                        `;
+                    }
+
                 } else {
                     tabelas += `
                         <div class="funcIndividual">
@@ -748,7 +966,7 @@ function Holerite(array) {
                                     </tr>
                                     <tr class="secondary">
                                         <td>Horas trabalhadas</td>
-                                        <td class="valores">${150}</td>
+                                        <td class="valores">${176}</td>
                                         <td class="valores">${total13}</td>
                                     </tr>
                                 </thead>
@@ -762,11 +980,6 @@ function Holerite(array) {
                                         <td>Descrição</td>
                                         <td>Referência</td>
                                         <td>Valor</td>
-                                    </tr>
-                                    <tr class="secondary">
-                                        <td>INSS</td>   
-                                        <td class="valores">9%</td>
-                                        <td class="valores">${inss}</td>
                                     </tr>
                                     <tr class="secondary">
                                         <td>FGTS</td>

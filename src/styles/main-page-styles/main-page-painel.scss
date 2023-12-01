@@ -131,6 +131,17 @@
                     }
                 }
             }
+
+            #colocaFerias {
+                .main-page__content__opcoes__cadastrar__form__input {
+                    display: flex;
+                    align-items: center;
+
+                    label {
+                        font-size: 25px;
+                    }
+                }
+            }
         }
     }
 
