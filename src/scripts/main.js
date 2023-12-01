@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const login = document.getElementById('login')
         const senha = document.getElementById('senha')
 
-        if (login.value === 'marcelocarvalho@sl.com ' && senha.value === '123') {
+        if (login.value === 'marcelocarvalho@sl.com' && senha.value === '123') {
             homePage.style.display = 'none'
             mainPage.style.display = 'flex'
         } else {
@@ -304,11 +304,14 @@ function PainelControle(array) {
                 document.querySelector('.main-page__content__painel__opcoes__apontamentoFerias__search__container').style.display = 'flex'
                 document.querySelector('.btn-lancaFerias').style.display = 'block'
 
-                encontrado.ferias = ferias = {
+                ferias = {
                     dataInicio: dataInicioInput.value,
                     dataTermino: dataTerminoInput.value
                 }
+
+                encontrado.ferias = ferias
                 console.log(encontrado)
+
                 corpoFerias.innerHTML = ''
             })
 
