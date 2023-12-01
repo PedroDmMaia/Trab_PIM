@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const login = document.getElementById('login')
         const senha = document.getElementById('senha')
 
-        if (login.value === 'admSlStartup2023' && senha.value === '123') {
+        if (login.value === 'marcelocarvalho@sl.com ' && senha.value === '123') {
             homePage.style.display = 'none'
             mainPage.style.display = 'flex'
         } else {
@@ -189,7 +189,7 @@ function PainelControle(array) {
         const encontrado = array.find(item => item.nome === nomePesquisado.value.toLowerCase())
 
         const corpoFerias = document.getElementById('colocaFerias')
-
+        corpoFerias.innerHTML = ''
         if (encontrado) {
             document.querySelector('.main-page__content__painel__opcoes__apontamentoFerias__search__container').style.display = 'none'
             document.querySelector('.btn-lancaFerias').style.display = 'none'
