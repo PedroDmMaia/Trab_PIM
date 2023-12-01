@@ -308,6 +308,7 @@ function PainelControle(array) {
                     dataInicio: dataInicioInput.value,
                     dataTermino: dataTerminoInput.value
                 }
+                console.log(encontrado)
                 corpoFerias.innerHTML = ''
             })
 
