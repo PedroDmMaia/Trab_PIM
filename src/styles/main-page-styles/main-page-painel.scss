@@ -93,6 +93,45 @@
                 }
             }
         }
+
+        &__apontamentoFerias {
+            &__search {
+                margin: 10px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 79.5vh;
+
+                &__container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 80vh;
+
+                    input {
+                        border-radius: 25px;
+                        padding: 20px;
+                        width: 300px;
+                        border: 2px solid #A6A6A6;
+                        color: #A6A6A6;
+
+                        &:focus {
+                            outline-color: #A6A6A6;
+                        }
+                    }
+
+                    button {
+                        width: 50px;
+                        background: none;
+                        border: none;
+
+                        img {
+                            width: 30px;
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
