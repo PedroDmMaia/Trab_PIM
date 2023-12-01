@@ -14,7 +14,7 @@
     display: flex;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    display: none;
+    // display: none;
 
     &__principal {
         @include alinhaItem();
@@ -32,8 +32,8 @@
         }
 
         img {
-            width: 150px;
-            height: 150px;
+            // width: 150px;
+            // height: 150px;
         }
     }
 

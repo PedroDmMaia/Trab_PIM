@@ -3,10 +3,19 @@ import { Trabalhadores, Professor, Secrataria, RH, TI } from "./funcionarios"
 document.addEventListener("DOMContentLoaded", () => {
     const buttonEntrar = document.querySelector('form')
     const homePage = document.querySelector('.home-page')
+    const mainPage = document.querySelector('.main-page')
 
     buttonEntrar.addEventListener('submit', function (e) {
         e.preventDefault()
-        homePage.style.display = 'none';
+        const login = document.getElementById('login')
+        const senha = document.getElementById('senha')
+
+        if (login.value === 'admSlStartup2023' && senha.value === '123') {
+            homePage.style.display = 'none'
+            mainPage.style.display = 'flex'
+        } else {
+            alert('usuário e/ou senha incorreto')
+        }
     })
 
     TrocaConteudo()
